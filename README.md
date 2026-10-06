@@ -1,1 +1,1 @@
-*Book catalogue CLI*
+**Book catalogue CLI**
