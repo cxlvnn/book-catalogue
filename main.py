@@ -27,6 +27,11 @@ def ask(prompt):
     return input(f"{prompt}: ").strip()
 
 
+def save_now(records):
+    save_records(records, DATA_FILE)
+    print(f"Saved {len(records)} records to {DATA_FILE}")
+
+
 def get_str_field(prompt, field_name):
     while True:
         try:
@@ -64,6 +69,7 @@ def add_record(records):
         f'Added "{record["title"]}" by {record["author"]}, {record["year"]}, '
         f'{record["price"]:.2f}, {record["genre"]}'
     )
+    save_now(records)
 
 
 def import_records(records):
@@ -82,6 +88,8 @@ def import_records(records):
         print(f"Skipped {len(problems)} rows:")
         for problem in problems:
             print(f"  {problem}")
+    if new_records:
+        save_now(records)
 
 
 def clean_records(records):
@@ -92,6 +100,7 @@ def clean_records(records):
     print(f"Fixed {len(changes)} fields:")
     for change in changes:
         print(f"  {change}")
+    save_now(cleaned)
     return cleaned
 
 
@@ -103,6 +112,7 @@ def deduplicate(records):
     print(f"Removed {len(removed)} duplicate records:")
     for record in removed:
         print(f'  "{record["title"]}" by {record["author"]} ({record["year"]})')
+    save_now(unique)
     return unique
 
 

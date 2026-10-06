@@ -35,8 +35,8 @@ empty catalogue.
 
 | Option | What it does |
 | --- | --- |
-| 1. Add a record | Asks for each field, checks it, adds it to the list in memory |
-| 2. Import records from a file | Loads a CSV, shows how many rows were loaded and which rows were skipped and why |
+| 1. Add a record | Asks for each field, checks it, adds it and saves `books.csv` |
+| 2. Import records from a file | Loads a CSV, shows how many rows were loaded and which rows were skipped and why, then saves `books.csv` |
 | 3. Clean and standardise records | Removes extra spaces, fixes capitalisation, prints every field it changed |
 | 4. Remove duplicates | Drops repeated records and prints which ones went |
 | 5. Search records | Keyword search over title, author and genre (part of the word is enough) |
@@ -46,8 +46,10 @@ empty catalogue.
 | 9. Export summary | Saves the summary to a text file, default `exports/summary.txt` |
 | 0. Exit | Leaves the program |
 
-Adding and importing only change the list in memory. Nothing is written to disk until you
-export, so you can clean and search before you save anything.
+Adding, importing, cleaning and removing duplicates all write the result straight to
+`books.csv` and print a line saying how many records were saved, so the file always matches
+what you see on screen. Search, filter and summary never change anything. Export is for
+saving a copy under a different name or in a different folder.
 
 If a search or filter finds nothing you get:
 

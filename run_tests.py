@@ -19,8 +19,9 @@ FAULTS = [
     (
         "The first version of `clean_records()` in main.py opened books.csv for writing and "
         "wrote an empty string to it. Cleaning destroyed the catalogue instead of cleaning it. "
-        "Cleaning now works on the list in memory and returns the fixed list; the file is only "
-        "written when you export."
+        "Cleaning now works on the list in memory and returns the fixed list, and books.csv is "
+        "written after every change (add, import, clean, remove duplicates). Cleaning never "
+        "opens the file for writing."
     ),
     (
         "books.csv contained rows with only 3 or 4 values (price and genre were missing), so "
