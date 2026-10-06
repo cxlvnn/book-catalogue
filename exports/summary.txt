@@ -1,0 +1,21 @@
+Total records: 11
+Unique genres: 5 (Classic, Fantasy, Romance, Science Fiction, Self Help)
+
+Records per genre:
+  Science Fiction: 3
+  Self Help: 3
+  Classic: 2
+  Romance: 2
+  Fantasy: 1
+
+Records per author:
+  John Doe: 3
+  George Orwell: 2
+  Jane Austen: 2
+  F. Scott Fitzgerald: 1
+  Frank Herbert: 1
+  Harper Lee: 1
+  J.R.R. Tolkien: 1
+
+Year: lowest 1811, highest 2021, average 1941.2
+Price: lowest 7.25, highest 90.00, average 18.38, total 202.20

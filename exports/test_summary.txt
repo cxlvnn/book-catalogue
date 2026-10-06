@@ -1,0 +1,19 @@
+Total records: 8
+Unique genres: 4 (Classic, Fantasy, Romance, Science Fiction)
+
+Records per genre:
+  Science Fiction: 3
+  Classic: 2
+  Romance: 2
+  Fantasy: 1
+
+Records per author:
+  George Orwell: 2
+  Jane Austen: 2
+  F. Scott Fitzgerald: 1
+  Frank Herbert: 1
+  Harper Lee: 1
+  J.R.R. Tolkien: 1
+
+Year: lowest 1811, highest 1965, average 1913.4
+Price: lowest 7.25, highest 14.99, average 10.65, total 85.20
