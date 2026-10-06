@@ -28,15 +28,15 @@ You need Python 3.10 or newer (the menu uses a `match` statement). From this fol
 python3 main.py
 ```
 
-The program loads `books.csv` on start. If that file is not there it starts with an
+The program loads `data/books.csv` on start. If that file is not there it starts with an
 empty catalogue.
 
 ## The menu
 
 | Option | What it does |
 | --- | --- |
-| 1. Add a record | Asks for each field, checks it, adds it and saves `books.csv` |
-| 2. Import records from a file | Loads a CSV, shows how many rows were loaded and which rows were skipped and why, then saves `books.csv` |
+| 1. Add a record | Asks for each field, checks it, adds it and saves `data/books.csv` |
+| 2. Import records from a file | Loads a CSV, shows how many rows were loaded and which rows were skipped and why, then saves `data/books.csv` |
 | 3. Clean and standardise records | Removes extra spaces, fixes capitalisation, prints every field it changed |
 | 4. Remove duplicates | Drops repeated records and prints which ones went |
 | 5. Search records | Keyword search over title, author and genre (part of the word is enough) |
@@ -47,7 +47,7 @@ empty catalogue.
 | 0. Exit | Leaves the program |
 
 Adding, importing, cleaning and removing duplicates all write the result straight to
-`books.csv` and print a line saying how many records were saved, so the file always matches
+`data/books.csv` and print a line saying how many records were saved, so the file always matches
 what you see on screen. Search, filter and summary never change anything. Export is for
 saving a copy under a different name or in a different folder.
 
@@ -88,6 +88,28 @@ sold at two prices and still be the same book.
 
 ## Files
 
+```
+book-catalogue/
+|-- main.py              the menu and the input questions
+|-- catalogue.py         loading, saving and checking the values
+|-- cleaning.py          cleaning and duplicate removal
+|-- searching.py         search, filter and the results table
+|-- summaries.py         summary figures and the summary export
+|-- run_tests.py         runs every test and writes the evidence table
+|-- README.md            this file
+|-- EXPLANATION.md       data structure choices and the AI use record
+|-- testing_evidence.md  the test results table and the faults found
+|-- data/
+|   |-- books.csv            the catalogue the program starts with
+|   |-- test_dataset.csv     the shared test dataset
+|   `-- test_dataset_empty.csv   no records, header row only
+`-- exports/
+    |-- records.csv          example: records exported from the menu
+    |-- summary.txt          example: summary exported from the menu
+    |-- test_records.csv     written by the tests
+    `-- test_summary.txt     written by the tests
+```
+
 | File | What it is |
 | --- | --- |
 | `main.py` | the menu and the input questions |
@@ -95,9 +117,9 @@ sold at two prices and still be the same book.
 | `cleaning.py` | cleaning and duplicate removal |
 | `searching.py` | search, filter and the results table |
 | `summaries.py` | summary figures and the summary export |
-| `books.csv` | the catalogue the program starts with |
-| `test_dataset.csv` | the shared test dataset |
-| `test_dataset_empty.csv` | a dataset with no records, header row only |
+| `data/books.csv` | the catalogue the program starts with |
+| `data/test_dataset.csv` | the shared test dataset |
+| `data/test_dataset_empty.csv` | a dataset with no records, header row only |
 | `run_tests.py` | runs every test and writes the evidence table |
 | `testing_evidence.md` | the test results table and the faults found |
 | `EXPLANATION.md` | why each collection type is used, and the AI use record |
@@ -105,7 +127,7 @@ sold at two prices and still be the same book.
 
 ## The test dataset
 
-`test_dataset.csv` has 15 rows: 10 good records, 2 of which are duplicates of other rows
+`data/test_dataset.csv` has 15 rows: 10 good records, 2 of which are duplicates of other rows
 after cleaning, rows with extra spaces and mixed capitalisation, and 5 rows that must be
 rejected (empty title, `twenty` as a year, a negative price, an empty price and a row with
 only 3 values). Searching for `orwell` returns several records, `zebra` returns none.
@@ -116,6 +138,6 @@ only 3 values). Searching for `orwell` returns several records, `zebra` returns 
 python3 run_tests.py
 ```
 
-This runs every test against `test_dataset.csv`, prints the number of tests passed and
+This runs every test against `data/test_dataset.csv`, prints the number of tests passed and
 writes `testing_evidence.md` with the operation, the test input, the expected result, the
 actual result and a pass/fail column, plus the faults found and how they were fixed.

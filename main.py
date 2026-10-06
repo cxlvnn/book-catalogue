@@ -6,7 +6,7 @@ from cleaning import remove_duplicates, standardise_records
 from searching import filter_records, search_records, show_records
 from summaries import build_summary, summary_lines, write_summary
 
-DATA_FILE = "books.csv"
+DATA_FILE = "data/books.csv"
 
 MENU = """
 ===== Book catalogue =====

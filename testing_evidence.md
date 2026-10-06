@@ -1,6 +1,6 @@
 # Testing evidence
 
-Every test runs against the shared test dataset in `test_dataset.csv`.
+Every test runs against the shared test dataset in `data/test_dataset.csv`.
 The table was written by `run_tests.py`, so the actual result column is what the code really did when the tests were run.
 
 Tests passed: 49 out of 49.
@@ -17,9 +17,9 @@ Tests passed: 49 out of 49.
 | Reject a negative price | price: -4.00 | price can't be negative | price can't be negative | Pass |
 | Reject a price with 3 decimal places | price: 12.999 | price can't have more than 2 decimal places | price can't have more than 2 decimal places | Pass |
 | Accept a valid price | price: 12.99 | 12.99 | 12.99 | Pass |
-| Import the shared test dataset | test_dataset.csv | 10 records loaded, 5 rows skipped | 10 records loaded, 5 rows skipped | Pass |
-| Report a row with missing values | test_dataset.csv line 16 (3 values instead of 5) | line 16: found 3 values, need 5 | line 16: found 3 values, need 5 | Pass |
-| Report a row with a bad year | test_dataset.csv line 13 (year: twenty) | line 13: year must be a whole number, for example 1998 | line 13: year must be a whole number, for example 1998 | Pass |
+| Import the shared test dataset | data/test_dataset.csv | 10 records loaded, 5 rows skipped | 10 records loaded, 5 rows skipped | Pass |
+| Report a row with missing values | data/test_dataset.csv line 16 (3 values instead of 5) | line 16: found 3 values, need 5 | line 16: found 3 values, need 5 | Pass |
+| Report a row with a bad year | data/test_dataset.csv line 13 (year: twenty) | line 13: year must be a whole number, for example 1998 | line 13: year must be a whole number, for example 1998 | Pass |
 | Import a file that does not exist | does_not_exist.csv | FileNotFoundError | FileNotFoundError | Pass |
 | Import a file that is not a CSV | notes.txt | Only .csv files can be imported | Only .csv files can be imported | Pass |
 | Remove spaces and fix capitalisation in a title | "  the   great gatsby " | The Great Gatsby | The Great Gatsby | Pass |
@@ -27,7 +27,7 @@ Tests passed: 49 out of 49.
 | Keep an apostrophe in a title | "it's a good book" | It's a Good Book | It's a Good Book | Pass |
 | Fix initials in an author name | "j.r.r. tolkien" | J.R.R. Tolkien | J.R.R. Tolkien | Pass |
 | Fix capitalisation in an author name | "f. scott fitzgerald" | F. Scott Fitzgerald | F. Scott Fitzgerald | Pass |
-| Clean the whole shared dataset | 10 records from test_dataset.csv | 11 fields changed | 11 fields changed | Pass |
+| Clean the whole shared dataset | 10 records from data/test_dataset.csv | 11 fields changed | 11 fields changed | Pass |
 | Show what was changed | first change reported | record 2: title "the   great gatsby" is now "The Great Gatsby" | record 2: title "the   great gatsby" is now "The Great Gatsby" | Pass |
 | Remove duplicate records | 10 cleaned records | 8 records kept, 2 duplicates removed | 8 records kept, 2 duplicates removed | Pass |
 | Which records were removed | 10 cleaned records | The Great Gatsby, The Hobbit | The Great Gatsby, The Hobbit | Pass |
@@ -48,7 +48,7 @@ Tests passed: 49 out of 49.
 | Summarise the years | 1811, 1815, 1925, 1937, 1945, 1949, 1960, 1965 | lowest 1811, highest 1965, average 1913.4 | lowest 1811, highest 1965, average 1913.4 | Pass |
 | Summarise the prices | 12.99, 10.50, 8.99, 7.25, 14.99, 11.50, 9.99, 8.99 | lowest 7.25, highest 14.99, average 10.65, total 85.20 | lowest 7.25, highest 14.99, average 10.65, total 85.20 | Pass |
 | Print the summary | 8 cleaned records | first line: Total records: 8 | first line: Total records: 8 | Pass |
-| Load a dataset with no records | test_dataset_empty.csv (header row only) | 0 records, 0 rows skipped | 0 records, 0 rows skipped | Pass |
+| Load a dataset with no records | data/test_dataset_empty.csv (header row only) | 0 records, 0 rows skipped | 0 records, 0 rows skipped | Pass |
 | Summarise an empty collection | empty list | There are no records to summarise. | There are no records to summarise. | Pass |
 | Search an empty collection | empty list, keyword anything | No records match "anything". Try a different word or value. | No records match "anything". Try a different word or value. | Pass |
 | Filter an empty collection | empty list, genre = Classic | No records match "genre = Classic". Try a different word or value. | No records match "genre = Classic". Try a different word or value. | Pass |
@@ -59,9 +59,9 @@ Tests passed: 49 out of 49.
 
 ## Faults found and corrections
 
-The first version of `clean_records()` in main.py opened books.csv for writing and wrote an empty string to it. Cleaning destroyed the catalogue instead of cleaning it. Cleaning now works on the list in memory and returns the fixed list, and books.csv is written after every change (add, import, clean, remove duplicates). Cleaning never opens the file for writing.
+The first version of `clean_records()` in main.py opened the catalogue file for writing and wrote an empty string to it. Cleaning destroyed the catalogue instead of cleaning it. Cleaning now works on the list in memory and returns the fixed list, and `data/books.csv` is written after every change (add, import, clean, remove duplicates). Cleaning never opens the file for writing.
 
-books.csv contained rows with only 3 or 4 values (price and genre were missing), so those rows could not be loaded. The missing values were filled in by hand, and load_records() now reports the line number and what it found instead of crashing.
+The catalogue file (`data/books.csv` now) contained rows with only 3 or 4 values (price and genre were missing), so those rows could not be loaded. The missing values were filled in by hand, and load_records() now reports the line number and what it found instead of crashing.
 
 The original get_str_field() ran .strip().lower().title() on everything the user typed. str.title() turns "it's" into "It'S" and "the day of the triffids" into "The Day Of The Triffids", and it also mangles initials such as j.r.r. Replaced with standardise_title() and standardise_person(), which go through the words one by one: short words such as "of" and "the" stay lowercase in the middle of a title, and initials such as "j.r.r." become "J.R.R.".
 
